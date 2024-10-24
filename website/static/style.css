@@ -51,12 +51,21 @@ body {
 }
 
 .throttle-fill {
-    background-color: #00cc66;
     width: 100%;
-    height: 50%;
     position: absolute;
-    bottom: 0;
-    transition: height 0.1s ease;
+    bottom: 50%;
+    background-color: #00cc66; /* Green for forward */
+    transition: height 0.1s ease, background-color 0.2s ease;
+}
+
+.throttle-neutral-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
 }
 
 .instructions p {
