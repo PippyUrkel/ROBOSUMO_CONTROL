@@ -29,21 +29,43 @@ function updateSpeedDisplay() {
     }
 }
 
+// Send movement commands to the Flask backend
+function sendMovementCommand(direction) {
+    fetch('/move', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ direction: direction, speed: speed })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
 // Handle robot movement keys (W, A, S, D)
 document.addEventListener('keydown', function(event) {
     let key = event.key.toLowerCase();
     switch (key) {
         case 'w':
             statusDisplay.innerText = 'Moving Forward';
+            sendMovementCommand('forward');
             break;
         case 's':
             statusDisplay.innerText = 'Moving Backward';
+            sendMovementCommand('reverse');
             break;
         case 'a':
             statusDisplay.innerText = 'Moving Left';
+            sendMovementCommand('left');
             break;
         case 'd':
             statusDisplay.innerText = 'Moving Right';
+            sendMovementCommand('right');
             break;
     }
 });
