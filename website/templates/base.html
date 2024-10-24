@@ -3,35 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robot Controller</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Motor Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="control-panel">
-            <h2>Control Panel</h2>
-            <div class="throttle">
-                <p>Speed: <span id="speed-display">0%</span></p>
-                <div class="throttle-bar">
-                    <div class="throttle-fill" id="throttle-fill"></div>
-                    <div class="throttle-neutral-line"></div>
-                </div>
-            </div>
-            <div class="instructions">
-                <p>W - Move Forward</p>
-                <p>S - Move Backward</p>
-                <p>A - Move Left</p>
-                <p>D - Move Right</p>
-                <p>Up/Down Arrows - Adjust Speed (Reverse included)</p>
-            </div>
-        </div>
+    <h1>Motor Control</h1>
 
-        <div class="robot-controller">
-            <h2>Robot Control</h2>
-            <div id="status">Press W, A, S, D to move the robot.</div>
-        </div>
+    <div>
+        <label for="speed">Speed: </label>
+        <input type="range" id="speed" min="0" max="80" value="50" oninput="updateSpeed(this.value)">
+        <span id="speedValue">50</span>%
     </div>
 
-    <script src="{{url_for('static', filename='script.js')}}"></script>
+    <div>
+        <button id="forward" class="control-button">W</button><br>
+        <button id="left" class="control-button">A</button>
+        <button id="stop" class="control-button">S</button>
+        <button id="right" class="control-button">D</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
