@@ -1,0 +1,13 @@
+Flask
+Flask-WTF
+Flask-SQLAlchemy
+Flask-Login
+Flask-Migrate
+Flask-Bcrypt
+Jinja2
+Werkzeug
+SQLAlchemy
+WTForms
+click
+itsdangerous
+email-validator
