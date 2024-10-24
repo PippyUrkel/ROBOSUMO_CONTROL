@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Controller</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="control-panel">
+            <h2>Control Panel</h2>
+            <div class="throttle">
+                <p>Speed: <span id="speed-display">50%</span></p>
+                <div class="throttle-bar">
+                    <div class="throttle-fill" id="throttle-fill"></div>
+                </div>
+            </div>
+            <div class="instructions">
+                <p>W - Move Forward</p>
+                <p>S - Move Backward</p>
+                <p>A - Move Left</p>
+                <p>D - Move Right</p>
+                <p>Up/Down Arrows - Adjust Speed</p>
+            </div>
+        </div>
+
+        <div class="robot-controller">
+            <h2>Robot Control</h2>
+            <div id="status">Press W, A, S, D to move the robot.</div>
+        </div>
+    </div>
+
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+</html>
