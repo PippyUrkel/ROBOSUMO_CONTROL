@@ -1,11 +1,10 @@
 import RPi.GPIO as GPIO
-import time
 
 class BTS7960_MotorDriver:
     def __init__(self, R_EN, L_EN, RPWM, LPWM, speed=50):
-        # Set up GPIO mode (BOARD: physical pin numbering)
-        GPIO.setmode(GPIO.BOARD)
-        
+        # Set GPIO mode to BCM
+        GPIO.setmode(GPIO.BCM)
+    def __init__(self, R_EN, L_EN, RPWM, LPWM, speed=50):
         # Define motor driver pins for each motor
         self.R_EN = R_EN  # Right enable pin
         self.L_EN = L_EN  # Left enable pin
@@ -51,68 +50,3 @@ class BTS7960_MotorDriver:
         """Stop the motor."""
         self.pwm_r.ChangeDutyCycle(0)           # Stop forward motion
         self.pwm_l.ChangeDutyCycle(0)           # Stop reverse motion
-
-    def move_left(self):
-        """Move left by rotating the left motor backward and right motor forward."""
-        self.pwm_r.ChangeDutyCycle(self.speed)  # Move the right motor forward
-        self.pwm_l.ChangeDutyCycle(self.speed)  # Move the left motor backward
-
-    def move_right(self):
-        """Move right by rotating the right motor backward and left motor forward."""
-        self.pwm_r.ChangeDutyCycle(self.speed)  # Move the right motor backward
-        self.pwm_l.ChangeDutyCycle(0)           # Stop the left motor (no reverse motion)
-
-    def cleanup(self):
-        """Clean up GPIO pins."""
-        self.pwm_r.stop()
-        self.pwm_l.stop()
-        GPIO.cleanup()
-
-
-# Example usage for controlling both left and right motors
-if __name__ == "__main__":
-    # Right motor driver (pins for right motor)
-    right_motor = BTS7960_MotorDriver(R_EN=21, L_EN=22, RPWM=23, LPWM=24)
-    
-    # Left motor driver (pins for left motor)
-    left_motor = BTS7960_MotorDriver(R_EN=25, L_EN=26, RPWM=27, LPWM=28)
-
-    # Set a universal speed (optional, default is 50%)
-    right_motor.set_speed(75)
-    left_motor.set_speed(75)
-
-    try:
-        # Move both motors forward
-        print("Moving forward...")
-        right_motor.forward()
-        left_motor.forward()
-        time.sleep(3)
-
-        # Stop both motors
-        print("Stopping...")
-        right_motor.stop()
-        left_motor.stop()
-        time.sleep(1)
-
-        # Turn left
-        print("Turning left...")
-        left_motor.move_left()
-        right_motor.forward()  # Keep the right motor moving forward
-        time.sleep(3)
-
-        # Turn right
-        print("Turning right...")
-        right_motor.move_right()
-        left_motor.forward()   # Keep the left motor moving forward
-        time.sleep(3)
-
-        # Stop both motors again
-        print("Stopping...")
-        right_motor.stop()
-        left_motor.stop()
-
-    finally:
-        # Clean up GPIO when done
-        print("Cleaning up...")
-        right_motor.cleanup()
-        left_motor.cleanup()
